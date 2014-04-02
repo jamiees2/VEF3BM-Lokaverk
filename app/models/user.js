@@ -3,7 +3,8 @@
 ==================================*/
 
 var mongoose = require('mongoose'),
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcrypt'),
+    ResumeSchemas = require('./resume');
 
 /*==========  User Schema  ==========*/
 var userSchema = mongoose.Schema({
@@ -12,6 +13,7 @@ var userSchema = mongoose.Schema({
     imageUrl: String,
     Country: String
   },
+  resume:   [ResumeSchemas.ResumeSchema],
   local: {
     email: { type: String, required: true },
     password: { type: String, required: true }

@@ -3,3 +3,10 @@ extends ../layout
 block content
   .container
     h1= user.local.email
+
+    form.form(action="/login" method="post")
+      h2 enter some text
+      .form-group
+        input.form-control(type="text" name="text" placeholder="Some Text" required autofocus)
+
+      button.btn.btn-lg.btn-primary.btn-block(type="submit") Log In
