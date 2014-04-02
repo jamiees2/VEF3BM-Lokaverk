@@ -1,0 +1,14 @@
+#top-nav.navbar.navbar-inverse.navbar-static-top
+  .container
+    .navbar-header
+      button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-collapse")
+        span.icon-toggle
+      a.navbar-brand(href="#") Dashboard
+    .navbar-collapse.collapse
+      ul.nav.navbar-nav.navbar-right
+        if user
+          li: a(href="/profile") Profile
+          li: a(href="/logout") Log Out
+        else
+          li: a(href="/signup") Sign Up
+          li: a(href="/login") Log In
