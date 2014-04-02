@@ -9,7 +9,8 @@ var express = require('express'),
     nib = require('nib'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    MongoStore = require('connect-mongo')(express);
 
 
 /**
@@ -21,16 +22,16 @@ function compile(str, path) {
 
 var app = express();
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4000;
 
 /* MongoDB Configuration file */
 var configDB = require('./config/database.js');
 
-/* Passport configuration */
-require('./config/passport')(passport);
-
 /* Connect to super awesome MongoDB*/
 mongoose.connect(configDB.url);
+
+/* Passport configuration */
+require('./config/passport')(passport);
 
 /*==========  The App configurations  ==========*/
 
@@ -48,7 +49,12 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
 
   // TODO: Change Secret token to something real.
-  app.use(express.session({ secret: 'thisisjusttemporary' }));
+  app.use(express.session({ 
+    store: new MongoStore({
+      url: configDB.url
+    }),
+    secret: 'j092qujifkol,afelJ@#4i9tohakldf,mshi23or8iasdf' 
+  }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());
