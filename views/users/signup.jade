@@ -4,6 +4,8 @@ block content
 
   .container
     form.form(action="/signup" method="post")
+      if (message.length > 0)
+        .error= message
       h2 Please Sign Up
       .form-group
         input.form-control(type="email" name="email" placeholder="Email address" required="" autofocus="")

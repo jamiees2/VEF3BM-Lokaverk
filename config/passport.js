@@ -85,7 +85,7 @@ module.exports = function(passport) {
 
       // If user is not found
       if (!user) {
-        return done(null, false, req.flash('loginMessage', "Duchess can't find this email"));
+        return done(null, false, req.flash('loginMessage', "Wrong Email"));
       }
 
       // If password is wrong

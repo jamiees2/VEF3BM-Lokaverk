@@ -4,6 +4,8 @@ block content
 
   .container
     form.form(action="/login" method="post")
+      if (message.length > 0)
+        .error= message
       h2 Please Log In
       .form-group
         input.form-control(type="email" name="email" placeholder="Email address" required autofocus)
