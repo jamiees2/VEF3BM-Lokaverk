@@ -1,4 +1,22 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/bower/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+    //- script(src="/bower/jquery/dist/jquery.min.js")
+    //- script(src="/bower/bootstrap/dist/js/bootstrap.min.js")
+    script(src="/bower/angular/angular.min.js")
+    script(src="/bower/angular-route/angular-route.min.js")
 
-block content
-  h1 WORKS!
+    //ANGULAR STUFF
+    script(src="/js/controllers/MainCtrl.js")
+    script(src="/js/controllers/ResumeCtrl.js")
+    script(src="/js/appRoutes.js")
+    script(src="/js/app.js")
+  body(ng-app="resumeApp", ng-controller="ResumeController")
+    include includes/header
+    div(ng-view)
+    
+
+    

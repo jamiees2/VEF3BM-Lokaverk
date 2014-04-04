@@ -1,0 +1,1 @@
+angular.module('resumeApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'ResumeCtrl']);

@@ -62,6 +62,7 @@ app.configure(function() {
 
 /* Get all app routes */
 // TODO: Have multiple route files, this might get messy
+require('./app/api.js')(app,passport);
 require('./app/routes.js')(app, passport);
 
 /**

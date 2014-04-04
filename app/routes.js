@@ -5,30 +5,6 @@
 module.exports = function(app, passport) {
 
   /**
-   * Home Page
-   */
-  app.get('/', function(req, res) {
-    res.render('index', {user: req.user});
-  });
-
-  app.get('/resumes', function(req,res){
-    if(!req.user){
-      res.json({error: 'Not logged in!',location: '/login'})
-    } else {
-      res.json(req.user.resumes);
-    }
-  });
-
-  app.post('/resumes', function(req,res){
-    if(!req.user){
-      res.json({error: 'Not logged in!',location: '/login'})
-    } else {
-      var resume = req.user.resumes.create({content: req.params.content})
-      res.json(resume);
-    }
-  });
-
-  /**
    * Log in Page
    */
   app.get('/login', function(req, res) {
@@ -41,7 +17,7 @@ module.exports = function(app, passport) {
 
   /* Log in POST */
   app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/profile',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
   }));
@@ -63,20 +39,19 @@ module.exports = function(app, passport) {
   }));
 
   /**
-   * Profile page
-   */
-  app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('users/profile', {
-      user: req.user
-    });
-  });
-
-  /**
    * Logout
    */
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
+  });
+
+
+  /**
+   * Home Page
+   */
+  app.get('*', function(req, res) {
+    res.render('index', {user: req.user});
   });
 };
 
