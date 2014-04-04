@@ -1,5 +1,53 @@
-angular.module('ResumeCtrl', []).controller('ResumeController', function($scope) {
+angular.module('ResumeCtrl', []).controller('ResumeController', function($scope,$http,Resumes) {
+	$scope.formData = {
+		references: [{}],
+		degrees: [{}],
+		experience: [{}]
+	};
+	Resumes.get()
+		.success(function(data){
+			$scope.resumes = data;
+		});
+	$scope.addReference = function(){
+		$scope.formData.references.push({});
+	}
+	$scope.removeReference = function(index){
+		$scope.formData.references.splice(index,1);
+	}
 
-	$scope.tagline = 'The square root of life is pi!';	
+	$scope.addDegree = function(){
+		$scope.formData.degrees.push({});
+	}
+
+	$scope.removeDegree = function($index) {
+		$scope.formData.degrees.splice($index,1);
+	}
+
+	$scope.addWork = function(){
+		$scope.formData.experience.push({});
+	}
+
+	$scope.removeWork = function($index) {
+		$scope.formData.experience.splice($index,1);
+	}
+
+	$scope.submitResume = function($valid){
+		console.log($valid);
+		console.log($scope.formData);
+		// if(!$.isEmptyObject($scope.formData)) {
+		Resumes.create($scope.formData)
+			.success(function(data){
+				$scope.formData = {};
+				$scope.resumes = data;
+			});
+		// }
+	}
+
+	$scope.removeResume = function(resume_id){
+		Resumes.delete(resume_id)
+			.success(function(data){
+				$scope.resumes = data;
+			});
+	}
 
 });
