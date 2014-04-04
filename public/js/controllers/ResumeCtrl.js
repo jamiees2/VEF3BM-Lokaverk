@@ -32,15 +32,21 @@ angular.module('ResumeCtrl', []).controller('ResumeController', function($scope,
 	}
 
 	$scope.submitResume = function($valid){
-		console.log($valid);
-		console.log($scope.formData);
 		// if(!$.isEmptyObject($scope.formData)) {
-		Resumes.create($scope.formData)
-			.success(function(data){
-				$scope.formData = {};
-				$scope.resumes = data;
-			});
-		// }
+		if(!$scope.data_exists){
+			Resumes.create($scope.formData)
+				.success(function(data){
+					$scope.formData = {};
+					$scope.resumes = data;
+				});
+		} else {
+			Resumes.update($scope.formData._id,$scope.formData)
+				.success(function(data) {
+					$scope.formData = {};
+					$scope.resumes = data;
+					$scope.data_exists = false;
+				});
+		}
 	}
 
 	$scope.removeResume = function(resume_id){
@@ -48,6 +54,11 @@ angular.module('ResumeCtrl', []).controller('ResumeController', function($scope,
 			.success(function(data){
 				$scope.resumes = data;
 			});
+	}
+
+	$scope.setResume = function(resume){
+		$scope.formData = resume;
+		$scope.data_exists = true;
 	}
 
 });

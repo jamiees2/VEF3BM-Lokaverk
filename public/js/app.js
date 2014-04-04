@@ -1,1 +1,1 @@
-angular.module('resumeApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'ResumeCtrl', 'resumeService']);
+angular.module('resumeApp', ['ngRoute', 'appRoutes', 'ViewCtrl', 'ResumeCtrl', 'resumeService']);

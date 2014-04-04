@@ -2,16 +2,14 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
 	$routeProvider
 
-		// home page
-		.when('/', {
-			templateUrl: 'views/home.html',
-			controller: 'MainController'
-		})
-
 		// resume page that will use the ResumeController
-		.when('/resumes', {
+		.when('/', {
 			templateUrl: 'views/resume.html',
 			controller: 'ResumeController'
+		})
+		.when('/resume/:resume_id', {
+			templateUrl: 'views/view.html',
+			controller: 'ViewController'
 		})
 
 	$locationProvider.html5Mode(true);

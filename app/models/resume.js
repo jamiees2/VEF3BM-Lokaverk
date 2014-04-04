@@ -10,7 +10,8 @@ var ResumeSchema = new Schema({
 	experience: Array,
 	name: String,
 	phone: String,
-	references: Array
+	references: Array,
+	title: String
 });
 
 

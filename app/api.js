@@ -18,6 +18,7 @@ module.exports = function(app, passport) {
     } else {
       console.log(req.body);
       req.user.resumes.push({
+        title: req.body.title,
         additional: req.body.additional,
         address: req.body.address,
         degrees: req.body.degrees,
@@ -37,5 +38,25 @@ module.exports = function(app, passport) {
     req.user.save(function(err){
       res.json(req.user.resumes);
     });
+  });
+  app.put('/api/resume/:resume_id',function(req,res){
+    var resume = req.user.resumes.id(req.params.resume_id);
+    resume.title = req.body.title;
+    resume.additional = req.body.additional;
+    resume.address = req.body.address;
+    resume.degrees = req.body.degrees;
+    resume.email = req.body.email;
+    resume.experience = req.body.experience;
+    resume.name = req.body.name;
+    resume.phone = req.body.phone;
+    resume.references = req.body.references;
+      
+    req.user.save(function(err){
+      res.json(req.user.resumes);
+    });
+  });
+
+  app.get('/api/resume/:resume_id',function(req,res){
+    res.json(req.user.resumes.id(req.params.resume_id));
   });
 };

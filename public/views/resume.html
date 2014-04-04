@@ -1,14 +1,22 @@
 <div class="jumbotron text-center">
 	<h1>RESUMES</h1>
-
+</div>
+<div class="well">
 	<div ng-repeat="resume in resumes">
-		<p>{{resume._id}}</p>
+		<p>{{resume.title}}</p>
+		<a href="resume/{{resume._id}}">View</a>
 		<button class="btn btn-danger" ng-click="removeResume(resume._id)">Delete</button>
+		<button class="btn btn-info" ng-click="setResume(resume)">Edit</button>
 	</div>
 </div>
-
 <!-- form -->
 <form name="resumeForm" ng-submit="submitResume(resumeForm.$valid)" novalidate>
+	<h3 class="text-center">Resume title</h3>
+	<div class="well row">
+		<div class="col-xs-12">
+			<input class="form-control" placeholder="Title" ng-model="formData.title" />
+		</div>
+	</div>
 	<h3 class="text-center">About Yourself</h3>
 	<div class="well row">
 		<div class="col-xs-12 form-group">

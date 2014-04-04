@@ -12,6 +12,12 @@ angular.module('resumeService', [])
 			},
 			delete : function(id) {
 				return $http.delete('/api/resume/' + id);
+			},
+			update : function(id, resumeData) {
+				return $http.put('/api/resume/' + id, resumeData);
+			},
+			find : function(id) {
+				return $http.get('/api/resume/' + id);
 			}
 		}
 	});
