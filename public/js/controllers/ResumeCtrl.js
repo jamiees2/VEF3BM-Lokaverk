@@ -6,7 +6,8 @@ angular.module('ResumeCtrl', []).controller('ResumeController', function($scope,
 	};
 	Resumes.get()
 		.success(function(data){
-			$scope.resumes = data;
+			$scope.resume = data;
+			$scope.formData = data;
 		});
 	$scope.addReference = function(){
 		$scope.formData.references.push({});
@@ -32,33 +33,11 @@ angular.module('ResumeCtrl', []).controller('ResumeController', function($scope,
 	}
 
 	$scope.submitResume = function($valid){
-		// if(!$.isEmptyObject($scope.formData)) {
-		if(!$scope.data_exists){
-			Resumes.create($scope.formData)
-				.success(function(data){
-					$scope.formData = {};
-					$scope.resumes = data;
-				});
-		} else {
-			Resumes.update($scope.formData._id,$scope.formData)
-				.success(function(data) {
-					$scope.formData = {};
-					$scope.resumes = data;
-					$scope.data_exists = false;
-				});
-		}
-	}
-
-	$scope.removeResume = function(resume_id){
-		Resumes.delete(resume_id)
+		Resumes.create($scope.formData)
 			.success(function(data){
-				$scope.resumes = data;
+				// $scope.formData = {};
+				$scope.resume = data;
 			});
-	}
-
-	$scope.setResume = function(resume){
-		$scope.formData = resume;
-		$scope.data_exists = true;
 	}
 
 });

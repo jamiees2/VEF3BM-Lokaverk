@@ -4,35 +4,17 @@
 
 module.exports = function(app, passport) {
 
-  /**
-   * Log in Page
-   */
-  app.get('/login', function(req, res) {
-    if (!req.user) {
-      res.render('users/login', { message: req.flash('loginMessage')});
-    } else{
-      res.redirect('/')
-    };
+  app.get('/api/v1/user', function(req,res) {
+    if(req.isAuthenticated()) res.send(req.user);
+    else res.send(null);
   });
-
   /* Log in POST */
-  app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-  }));
-
-  /* Signup Page */
-  app.get('/signup', function(req, res) {
-    if (!req.user) {
-      res.render('users/signup', { message: req.flash('signupMessage')});
-    } else{
-      res.redirect('/')
-    };
+  app.post('/api/v1/user/login', passport.authenticate('local-login'), function(req,res) {
+    res.send(req.user);
   });
 
   /* Signup POST */
-  app.post('/signup', passport.authenticate('local-signup', {
+  app.post('/api/v1/user/signup', passport.authenticate('local-signup', {
     successRedirect: '/profile',
     failureRedirect: '/signup',
     failureFlash: true
@@ -41,9 +23,30 @@ module.exports = function(app, passport) {
   /**
    * Logout
    */
-  app.get('/logout', function(req, res) {
+  app.get('/api/v1/user/logout', auth, function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.send(200);
+  });
+
+  app.get('/api/v1/user/resume', auth, function(req,res){
+    res.json(req.user.resume);
+  });
+
+  app.post('/api/v1/user/resume', auth, function(req,res){
+    req.user.resume = {
+      title: req.body.title,
+      additional: req.body.additional,
+      address: req.body.address,
+      degrees: req.body.degrees,
+      email: req.body.email,
+      experience: req.body.experience,
+      name: req.body.name,
+      phone: req.body.phone,
+      references: req.body.references
+    };
+    req.user.save(function(err){
+      res.json(req.user.resume)
+    });
   });
 
 
@@ -51,18 +54,14 @@ module.exports = function(app, passport) {
    * Home Page
    */
   app.get('*', function(req, res) {
-    res.render('index', {user: req.user});
+    res.sendfile('index.html', { root: __dirname + "/../public" });
   });
 };
 
 /**
  * Check if a user is online
  */
-function isLoggedIn(req, res, next) {
-
-  // Check if user is authenticated
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/');
-}
+var auth = function(req, res, next){ 
+  if (!req.isAuthenticated()) res.send(401); 
+  else next(); 
+};

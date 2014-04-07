@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var ResumeSchema = new Schema({
+var ResumeDef = {
 	dateCreated: {type:Date, 'default':Date.now},
 	additional: String,
 	address: String,
@@ -12,8 +12,10 @@ var ResumeSchema = new Schema({
 	phone: String,
 	references: Array,
 	title: String
-});
+}
 
+var ResumeSchema = new Schema(ResumeDef);
 
 module.exports.ResumeSchema = ResumeSchema;
-module.exports.ResumeModel = mongoose.model('Resume',ResumeSchema);
+module.exports.ResumeDef = ResumeDef;
+// module.exports.ResumeModel = mongoose.model('Resume',ResumeSchema);

@@ -1,23 +1,17 @@
-angular.module('resumeService', [])
+angular.module('ResumeService', [])
 
 	// super simple service
 	// each function returns a promise object 
 	.factory('Resumes', function($http) {
 		return {
 			get : function() {
-				return $http.get('/api/resumes');
+				return $http.get('/api/v1/user/resume');
 			},
 			create : function(resumeData) {
-				return $http.post('/api/resumes', resumeData);
+				return $http.post('/api/v1/user/resume', resumeData);
 			},
-			delete : function(id) {
-				return $http.delete('/api/resume/' + id);
-			},
-			update : function(id, resumeData) {
-				return $http.put('/api/resume/' + id, resumeData);
-			},
-			find : function(id) {
-				return $http.get('/api/resume/' + id);
+			update : function(resumeData) {
+				return $http.post('/api/v1/user/resume', resumeData);
 			}
 		}
 	});

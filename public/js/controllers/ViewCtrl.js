@@ -1,6 +1,6 @@
-angular.module('ViewCtrl', []).controller('ViewController', function($scope,$routeParams,Resumes) {
+angular.module('ViewCtrl', []).controller('ViewController', function($scope,Resumes) {
 
-	Resumes.find($routeParams.resume_id)
+	Resumes.get()
 		.success(function(resume){
 			$scope.resume = resume;
 		});

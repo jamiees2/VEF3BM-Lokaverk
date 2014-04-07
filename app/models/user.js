@@ -13,7 +13,7 @@ var userSchema = mongoose.Schema({
     imageUrl: String,
     Country: String
   },
-  resumes:   [ResumeSchemas.ResumeSchema],
+  resume:  ResumeSchemas.ResumeDef,
   local: {
     email: { type: String, required: true },
     password: { type: String, required: true }

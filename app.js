@@ -43,7 +43,7 @@ app.configure(function() {
   app.use(express.methodOverride());
   app.use(express.bodyParser());
 
-  app.set('view engine', 'jade');
+  // app.set('view engine', 'jade');
 
   app.use(stylus.middleware( { src: __dirname + '/public', compile: compile }));
   app.use(express.static(__dirname + '/public'));
@@ -62,7 +62,6 @@ app.configure(function() {
 
 /* Get all app routes */
 // TODO: Have multiple route files, this might get messy
-require('./app/api.js')(app,passport);
 require('./app/routes.js')(app, passport);
 
 /**
