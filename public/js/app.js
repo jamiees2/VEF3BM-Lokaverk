@@ -5,7 +5,9 @@ angular.module('resumeApp', [
 	'ResumeCtrl',
 	'LoginCtrl',
 	'LogoutCtrl',
+	'JobCtrl',
 	'MainCtrl',
 	'ResumeService',
-	'AuthService'
+	'AuthService',
+	'JobService'
 ]);

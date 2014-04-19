@@ -22,6 +22,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', '
 			templateUrl: 'views/index.html',
 			controller: 'MainController'
 		})
+		.when('/jobs', {
+			templateUrl: 'views/jobs.html',
+			controller: 'JobController'
+		})
 		.when('/resume/edit', {
 			templateUrl: 'views/resume.html',
 			controller: 'ResumeController'

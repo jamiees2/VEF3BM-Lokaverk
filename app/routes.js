@@ -1,6 +1,7 @@
 /*=============================================
 =                   Routes                    =
 =============================================*/
+Job = require('./models/job')
 
 module.exports = function(app, passport) {
 
@@ -47,6 +48,61 @@ module.exports = function(app, passport) {
     req.user.save(function(err){
       res.json(req.user.resume)
     });
+  });
+
+  app.get('/api/v1/jobs',auth,function(req,res){
+    Job.find(function(err,jobs){
+      res.json(jobs);
+    });
+  });
+
+  app.post('/api/v1/jobs',auth,function(req,res){
+    var job = new Job({
+      title: req.body.title,
+      company: {
+        name: req.body.company.name
+      },
+      description: {
+        short: req.body.description.short,
+        long: req.body.description.long
+      },
+      user: req.user
+    });
+    job.save(function(err){
+      res.json(job);
+    });
+
+  });
+
+  app.get('/api/v1/me/jobs',auth,function(req,res){
+    Job.find({user:req.user},function(err,jobs){
+      res.json(jobs);
+    })
+  });
+
+  app.put('/api/v1/job/:id',auth,function(req,res){
+    // console.log(req.params)
+    Job.findOne({_id: req.params['id']},function(err,job){
+      job.title = req.body.title;
+      job.company = req.body.company
+      job.description = req.body.description
+      job.save(function(err){
+        Job.find(function(err,jobs){
+          res.json(jobs);
+        });
+      });
+    })
+  });
+
+  app.delete('/api/v1/job/:id',auth,function(req,res){
+    // console.log(req.params)
+    Job.findOne({_id: req.params['id']},function(err,job){
+      job.remove(function(err){
+        Job.find(function(err,jobs){
+          res.json(jobs);
+        });
+      });
+    })
   });
 
 

@@ -1,0 +1,20 @@
+<button ng-click="toggleAddJob()" class="btn btn-primary">Add Job</button>
+<div ng-show="addingJob">
+	<form ng-submit="submitForm()">
+		<input type="text" ng-model="formData.title" class="form-control" />
+		<input type="text" ng-model="formData.company.name" class="form-control" />
+		<textarea class="form-control" ng-model="formData.description.short" class="form-control" ></textarea>
+		<textarea class="form-control" ng-model="formData.description.long" class="form-control" ></textarea>
+		<input type="submit" class="btn btn-primary" value="Submit" />
+	</form>
+</div>
+<button ng-click="showMyJobs()" class="btn btn-primary">Show My Jobs</button>
+<div ng-repeat="job in jobs">
+	<h1>{{job.title}} at {{job.company.name}}</h1>
+	<h4>{{job.description.short}}</h4>
+	<p>{{job.description.long}}</p>
+	<div ng-show="job.user === user._id">
+		<button ng-click="editJob(job)">Edit</button>
+		<button ng-click="deleteJob(job)">Delete</button>
+	</div>
+</div>
