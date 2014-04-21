@@ -15,10 +15,9 @@
     <script src="/bower/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="/bower/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="/bower/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/bower/angular-ui-router/release/angular-ui-router.min.js"></script>
     <!-- ANGULAR STUFF -->
     <script src="/js/controllers/MainCtrl.js"></script>
-    <script src="/js/controllers/LoginCtrl.js"></script>
-    <script src="/js/controllers/LogoutCtrl.js"></script>
     <script src="/js/controllers/ViewCtrl.js"></script>
     <script src="/js/controllers/ResumeCtrl.js"></script>
     <script src="/js/controllers/JobCtrl.js"></script>
@@ -36,17 +35,20 @@
           <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-toggle"></span></button><a href="#" class="navbar-brand">Dashboard</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li ng-hide="user" ><a href="/signup">Sign Up</a></li>
-            <li ng-hide="user" ><a href="/login">Log In</a></li>
-            <li ng-show="user" ><a href="/logout">Log Out</a></li>
-            <li ng-show="user" ><a href="/resume">View Resume</a></li>
+          <ul ng-hide="user" class="nav navbar-nav navbar-right">
+            <li><a ui-sref="signup">Sign Up</a></li>
+            <li><a ui-sref="login">Log In</a></li>
+          </ul>
+          <ul ng-show="user" class="nav navbar-nav navbar-right">
+            <li><a ui-sref="jobs">Jobs</a></li>
+            <li><a ui-sref="logout">Log Out</a></li>
+            <li><a ui-sref="resume">View Resume</a></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="container">
-      <div ng-view></div>
+      <div ui-view></div>
     </div>
   </body>
 </html>

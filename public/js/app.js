@@ -1,11 +1,10 @@
 angular.module('resumeApp', [
+	'ui.router',
 	'ngRoute', 
 	'appRoutes',
 	'markdown',
 	'ViewCtrl',
 	'ResumeCtrl',
-	'LoginCtrl',
-	'LogoutCtrl',
 	'JobCtrl',
 	'MainCtrl',
 	'ResumeService',

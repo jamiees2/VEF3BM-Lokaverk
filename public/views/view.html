@@ -1,4 +1,5 @@
-<a href="/resume/edit">Edit</a>
+<div ui-view>
+<a ui-sref=".edit">Edit</a>
 <h2>{{resume.name}}</h2>
 <p>{{resume.address}}</p>
 <i>{{resume.phone}}</i>
@@ -26,4 +27,5 @@
 	<div class="col-xs-4">
 		<p>{{reference.job}}</p>
 	</div>
+</div>
 </div>
