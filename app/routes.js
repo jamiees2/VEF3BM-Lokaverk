@@ -69,7 +69,9 @@ module.exports = function(app, passport) {
       user: req.user
     });
     job.save(function(err){
-      res.json(job);
+      Job.find(function(err,jobs){
+        res.json(jobs);
+      });
     });
 
   });
@@ -82,7 +84,8 @@ module.exports = function(app, passport) {
 
   app.put('/api/v1/job/:id',auth,function(req,res){
     // console.log(req.params)
-    Job.findOne({_id: req.params['id']},function(err,job){
+    Job.findOne({_id: req.params['id'], user: req.user},function(err,job){
+      if(err) return res.json("No")
       job.title = req.body.title;
       job.company = req.body.company
       job.description = req.body.description
@@ -96,7 +99,9 @@ module.exports = function(app, passport) {
 
   app.delete('/api/v1/job/:id',auth,function(req,res){
     // console.log(req.params)
-    Job.findOne({_id: req.params['id']},function(err,job){
+    Job.findOne({_id: req.params['id'], user: req.user},function(err,job){
+
+      if(err) return res.json("No")
       job.remove(function(err){
         Job.find(function(err,jobs){
           res.json(jobs);
@@ -105,6 +110,19 @@ module.exports = function(app, passport) {
     })
   });
 
+  app.get('/api/v1/job/:id/applications',auth,function(req,res){
+    Job.findOne({_id: req.params['id']},function(err,job){
+      if(err) return res.json("No");
+      res.json(job.applications);
+    });
+  });
+
+  app.post('/api/v1/job/:id/applications',auth,function(req,res){
+    Job.findOne({_id: req.params['id']},function(err,job){
+      if(err) return res.json("No");
+      //TODO: Create a job
+    });
+  });
 
   /**
    * Home Page

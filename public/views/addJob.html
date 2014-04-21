@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h3>Add Job</h3>
+</div>
+<div class="modal-body">
+	<div class="form-group">
+		<label>Title</label>
+		<input type="text" ng-model="formData.title" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label>Company Name</label>
+		<input type="text" ng-model="formData.company.name" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label>Short description (1 liner)</label>
+		<input type="text" class="form-control" ng-model="formData.description.short" />
+	</div>
+
+	<div class="form-group">
+		<label>Long description (in Markdown)</label>
+		<textarea rows="10" class="form-control" ng-model="formData.description.long" ></textarea>
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="submit()">Submit</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

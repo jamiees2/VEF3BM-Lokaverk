@@ -1,6 +1,7 @@
 angular.module('resumeApp', [
 	'ngRoute', 
 	'appRoutes',
+	'markdown',
 	'ViewCtrl',
 	'ResumeCtrl',
 	'LoginCtrl',
