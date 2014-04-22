@@ -54,7 +54,12 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
 	    .state('resume',{
 	    	url: '/resume',
 	    	templateUrl: 'views/view.html',
-	    	controller: 'ViewController'
+	    	controller: function($scope,Resumes) {
+				Resumes.get()
+					.success(function(resume){
+						$scope.resume = resume;
+					});
+			}
 	    })
 	    .state('resume.edit',{
 	    	url: '/edit',
