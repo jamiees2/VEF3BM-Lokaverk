@@ -5,7 +5,10 @@ angular.module('resumeApp', [
 	'markdown',
 	'ResumeCtrl',
 	'JobCtrl',
+	'JobApplicationCtrl',
 	'ResumeService',
 	'AuthService',
 	'JobService'
-]);
+]).run(function(Auth){
+	Auth.isLoggedIn(); // Get the user on startup
+});

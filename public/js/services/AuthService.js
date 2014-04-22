@@ -1,5 +1,5 @@
 angular.module('AuthService',[]).service( 'Auth', function($http,$rootScope) {
-  var auth = {
+  return {
     login: function(credentials) {
     	return $http.post('/api/v1/user/login',credentials)
 			.success(function(data){
@@ -20,6 +20,4 @@ angular.module('AuthService',[]).service( 'Auth', function($http,$rootScope) {
     },
     currentUser: function() { return $rootScope.user; }
   };
-  auth.isLoggedIn();
-  return auth;
 });

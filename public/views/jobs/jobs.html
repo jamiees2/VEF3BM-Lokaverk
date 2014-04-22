@@ -1,0 +1,16 @@
+<div ui-view>
+	<button ng-click="addJob()" class="btn btn-primary">Add Job</button>
+	<button ng-click="showMyJobs()" class="btn btn-primary" ng-hide="myJobs">Show jobs created by Me</button>
+	<button ng-click="showJobs()" class="btn btn-primary" ng-show="myJobs">Show All Jobs</button>
+	<div ng-repeat="job in jobs">
+		<h1>{{job.title}} at {{job.company.name}}</h1>
+		<h4>{{job.description.short}}</h4>
+
+		<a ui-sref=".view({jobId: job._id})" class="btn btn-info">View</a>
+		<br />
+		<div class="pull-right" ng-show="job.user === user._id">
+			<button ng-click="editJob(job)" class="btn btn-warning">Edit</button>
+			<button ng-click="deleteJob(job)" class="btn btn-danger">Delete</button>
+		</div>
+	</div>
+</div>

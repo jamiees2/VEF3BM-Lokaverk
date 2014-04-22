@@ -53,7 +53,7 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
 	    })
 	    .state('resume',{
 	    	url: '/resume',
-	    	templateUrl: 'views/view.html',
+	    	templateUrl: 'views/user/resume.view.html',
 	    	controller: function($scope,Resumes) {
 				Resumes.get()
 					.success(function(resume){
@@ -63,17 +63,22 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
 	    })
 	    .state('resume.edit',{
 	    	url: '/edit',
-	    	templateUrl: 'views/resume.html',
+	    	templateUrl: 'views/user/resume.html',
 	    	controller: 'ResumeController'
 	    })
 	    .state('jobs',{
 	    	url: '/jobs',
-	    	templateUrl: 'views/jobs.html',
+	    	templateUrl: 'views/jobs/jobs.html',
 	    	controller: 'JobController'
+	    })
+	    .state('jobs.view',{
+	    	url: '/view/:jobId',
+	    	templateUrl: 'views/jobs/job.html',
+	    	controller: 'JobApplicationController'
 	    })
 	    .state('login',{
 	    	url: '/login',
-	    	templateUrl: 'views/login.html',
+	    	templateUrl: 'views/auth/login.html',
 	    	controller: function($scope,$location,Auth){
 	    		$scope.formData = {}
 				$scope.submitForm = function(){

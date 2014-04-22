@@ -13,7 +13,7 @@ angular.module('JobCtrl', ['ui.bootstrap']).controller('JobController', function
 	// }
 	$scope.addJob = function(){
 		$modal.open({
-			templateUrl: 'views/addJob.html',
+			templateUrl: 'views/jobs/addJob.html',
 			controller: function($scope, $modalInstance, data, Jobs){
 				$scope.formData = data;
 				$scope.submit = function(){
@@ -55,7 +55,7 @@ angular.module('JobCtrl', ['ui.bootstrap']).controller('JobController', function
 	}
 	$scope.editJob = function(job){
 		$modal.open({
-			templateUrl: 'views/addJob.html',
+			templateUrl: 'views/jobs/addJob.html',
 			controller: function($scope, $modalInstance, data, Jobs){
 				$scope.formData = data;
 				$scope.submit = function(){

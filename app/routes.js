@@ -81,6 +81,15 @@ module.exports = function(app, passport) {
       res.json(jobs);
     })
   });
+  app.get('/api/v1/job/:id',auth,function(req,res){
+    // console.log(req.params)
+    Job.findOne({_id: req.params['id']},function(err,job){
+
+      if(err) return res.json("No")
+      res.json(job);
+    })
+  });
+
 
   app.put('/api/v1/job/:id',auth,function(req,res){
     // console.log(req.params)

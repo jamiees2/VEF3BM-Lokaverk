@@ -18,6 +18,9 @@ angular.module('JobService', [])
 			},
 			delete: function(id) {
 				return $http.delete('/api/v1/job/' + id)
+			},
+			find: function(id){
+				return $http.get('/api/v1/job/' + id );
 			}
 		}
 	});
