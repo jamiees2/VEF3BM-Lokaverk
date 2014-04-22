@@ -3,10 +3,8 @@ angular.module('resumeApp', [
 	'ngRoute', 
 	'appRoutes',
 	'markdown',
-	'ViewCtrl',
 	'ResumeCtrl',
 	'JobCtrl',
-	'MainCtrl',
 	'ResumeService',
 	'AuthService',
 	'JobService'
