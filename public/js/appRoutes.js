@@ -55,10 +55,16 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
 	    	url: '/resume',
 	    	templateUrl: 'views/user/resume.view.html',
 	    	controller: function($scope,Resumes) {
-				Resumes.get()
-					.success(function(resume){
-						$scope.resume = resume;
-					});
+	    		$scope.$on('$locationChangeSuccess', function () {
+			          $scope.search();
+			    });
+			    $scope.search = function(){
+					Resumes.get()
+						.success(function(resume){
+							$scope.resume = resume;
+						});
+				}
+				$scope.search();
 			}
 	    })
 	    .state('resume.edit',{

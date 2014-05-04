@@ -13,6 +13,28 @@ angular.module('JobApplicationCtrl', ['ui.bootstrap']).controller('JobApplicatio
 			// console.log(job);
 			$scope.job = job;
 		})
+	$scope.openCV = function(cv,user){
+		$modal.open({
+			templateUrl: 'views/jobs/cv.view.html',
+			controller: function($scope, $modalInstance, cv,user){
+				$scope.cv = cv;
+				$scope.user = user;
+				$scope.close = function(){
+					$modalInstance.dismiss();
+				}
+			},
+			resolve: {
+				cv: function(){
+					return cv;
+				},
+				user: function(){
+					return user;
+				}
+			}
+	    }).result.then(function(data){
+	    	console.log(data)
+	    })
+	}
 	$scope.openResume = function(resume){
 		$modal.open({
 			templateUrl: 'views/jobs/resume.view.html',

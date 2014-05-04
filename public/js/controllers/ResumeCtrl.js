@@ -1,4 +1,4 @@
-angular.module('ResumeCtrl', []).controller('ResumeController', function($scope,$http,Resumes) {
+angular.module('ResumeCtrl', []).controller('ResumeController', function($scope,$http,Resumes,$location) {
 	$scope.formData = {
 		references: [{}],
 		degrees: [{}],
@@ -38,6 +38,7 @@ angular.module('ResumeCtrl', []).controller('ResumeController', function($scope,
 				// $scope.formData = {};
 				$scope.resume = data;
 			});
+		$location.path('resume')
 	}
 
 });
