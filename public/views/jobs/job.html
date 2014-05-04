@@ -2,3 +2,12 @@
 <h4>{{job.description.short}}</h4>
 
 <div markdown="job.description.long"></div>
+
+<button class="btn btn-success" ng-click="applyJob()" ng-show="user._id != job.user">Apply</button>
+
+<h2>Applications</h2>
+<div ng-repeat="application in job.applications" class="row">
+	<div class="col-md-4">{{application.user.resume.name}}</div>
+	<div class="col-md-4"><button class="btn btn-info" ng-click="openCV(application.user.resume)">View Cover Letter</button></div>
+	<div class="col-md-4"><button class="btn btn-success" ng-click="openResume(application.user.resume)">View Resume</button></div>
+</div>

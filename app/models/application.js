@@ -1,25 +1,18 @@
 /*==================================
-=            User Model            =
+=            Application Model            =
 ==================================*/
 
 var mongoose = require('mongoose');
 
 /*==========  User Schema  ==========*/
-var jobSchema = mongoose.Schema({
-  title: String,
-  company: {
-    name: String
-  },
-  description: {
-    short: String,
-    long: String
-  },
+var applicationSchema = mongoose.Schema({
+  cover_letter: String,
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  applications: [require('./application').Schema],
   timestamps: {
     created: {type: Date, default: Date.now}
   }
 });
 
 /* Export module */
-module.exports = mongoose.model('Job', jobSchema);
+module.exports.Schema = applicationSchema
+module.exports.Model = mongoose.model('Application', applicationSchema);

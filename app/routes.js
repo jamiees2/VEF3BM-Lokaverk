@@ -1,7 +1,10 @@
 /*=============================================
 =                   Routes                    =
 =============================================*/
-Job = require('./models/job')
+var Job = require('./models/job'),
+  User = require('./models/user'),
+  _ = require('lodash');
+
 
 module.exports = function(app, passport) {
 
@@ -50,10 +53,26 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.get('/api/v1/jobs',auth,function(req,res){
+  app.get('/api/v1/user/:id', auth, function(req,res){
+    User.find({_id: req.params['id']}).populate('profile, resume').exec(function(err,user){
+      if(err) return res.json("No")
+      res.json(user);
+    });
+  })
+
+  var listJobs = function(req,res){
     Job.find(function(err,jobs){
+      _.each(jobs,function(job){
+        if (req.user._id.toString() !== job.user.toString()) {
+          job.applications = []; // Hide job applications from anyone that didn't create them
+        }
+      })
       res.json(jobs);
     });
+  }
+
+  app.get('/api/v1/jobs',auth,function(req,res){
+    listJobs(req,res);
   });
 
   app.post('/api/v1/jobs',auth,function(req,res){
@@ -69,9 +88,7 @@ module.exports = function(app, passport) {
       user: req.user
     });
     job.save(function(err){
-      Job.find(function(err,jobs){
-        res.json(jobs);
-      });
+        listJobs(req,res);
     });
 
   });
@@ -83,10 +100,17 @@ module.exports = function(app, passport) {
   });
   app.get('/api/v1/job/:id',auth,function(req,res){
     // console.log(req.params)
-    Job.findOne({_id: req.params['id']},function(err,job){
+    Job.findOne({_id: req.params['id']}).exec(function(err,job){
 
-      if(err) return res.json("No")
-      res.json(job);
+      if(err) return res.json("No");
+      if (req.user._id.toString() !== job.user.toString()) {
+        job.applications = [];
+        return res.json(job);
+      }
+      User.populate(job.applications,{path:'user'}, function(err,user){
+        if(err) return res.json("No");
+        return res.json(job);
+      });
     })
   });
 
@@ -99,9 +123,7 @@ module.exports = function(app, passport) {
       job.company = req.body.company
       job.description = req.body.description
       job.save(function(err){
-        Job.find(function(err,jobs){
-          res.json(jobs);
-        });
+        listJobs(req,res);
       });
     })
   });
@@ -112,15 +134,13 @@ module.exports = function(app, passport) {
 
       if(err) return res.json("No")
       job.remove(function(err){
-        Job.find(function(err,jobs){
-          res.json(jobs);
-        });
+        listJobs(req,res);
       });
     })
   });
 
   app.get('/api/v1/job/:id/applications',auth,function(req,res){
-    Job.findOne({_id: req.params['id']},function(err,job){
+    Job.findOne({_id: req.params['id'], user: req.user},function(err,job){
       if(err) return res.json("No");
       res.json(job.applications);
     });
@@ -130,6 +150,16 @@ module.exports = function(app, passport) {
     Job.findOne({_id: req.params['id']},function(err,job){
       if(err) return res.json("No");
       //TODO: Create a job
+      job.applications.push({
+        cover_letter: req.body.cover_letter,
+        user: req.user
+      });
+      job.save(function(err){
+        // debugger;
+        console.log(err);
+        if(err) return res.json("No");
+        res.json(job);
+      })
     });
   });
 

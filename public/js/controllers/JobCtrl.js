@@ -3,7 +3,6 @@ angular.module('JobCtrl', ['ui.bootstrap']).controller('JobController', function
 		company: {},
 		description: {}
 	}
-	console.log($scope.user)
 	Jobs.get()
 		.success(function(data){
 			$scope.jobs = data;

@@ -18,6 +18,9 @@ angular.module('AuthService',[]).service( 'Auth', function($http,$rootScope) {
 				$rootScope.user = data;
 			});
     },
-    currentUser: function() { return $rootScope.user; }
+    currentUser: function() { return $rootScope.user; },
+    getUser: function(id) {
+      return $http.get('/api/v1/user/' + id);
+    }
   };
 });

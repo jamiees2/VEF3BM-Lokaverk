@@ -21,6 +21,9 @@ angular.module('JobService', [])
 			},
 			find: function(id){
 				return $http.get('/api/v1/job/' + id );
+			},
+			createApplication: function(id,application){
+				return $http.post('/api/v1/job/' + id + '/applications',application);
 			}
 		}
 	});
