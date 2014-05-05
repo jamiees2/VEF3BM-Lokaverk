@@ -82,6 +82,21 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
 	    	templateUrl: 'views/jobs/job.html',
 	    	controller: 'JobApplicationController'
 	    })
+	    .state('signup',{
+	    	url: '/signup',
+	    	templateUrl: 'views/auth/signup.html',
+	    	controller: function($scope,$location,Auth){
+	    		if ($rootScope.user)
+	    			$location.path('/')
+	    		$scope.formData = {}
+				$scope.submitForm = function(){
+					Auth.signup($scope.formData)
+						.success(function(data){
+							$location.path('/');
+						});
+				}
+	    	}
+	    })
 	    .state('login',{
 	    	url: '/login',
 	    	templateUrl: 'views/auth/login.html',
