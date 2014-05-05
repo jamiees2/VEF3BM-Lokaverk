@@ -9,6 +9,7 @@ angular.module('resumeApp', [
 	'ResumeService',
 	'AuthService',
 	'JobService'
-]).run(function(Auth){
+]).run(function(Auth,$rootScope,$state){
+	$rootScope.$state = $state;
 	Auth.isLoggedIn(); // Get the user on startup
 });
