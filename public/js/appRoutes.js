@@ -85,7 +85,7 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
 	    .state('signup',{
 	    	url: '/signup',
 	    	templateUrl: 'views/auth/signup.html',
-	    	controller: function($scope,$location,Auth){
+	    	controller: function($rootScope,$scope,$location,Auth){
 	    		if ($rootScope.user)
 	    			$location.path('/')
 	    		$scope.formData = {}
