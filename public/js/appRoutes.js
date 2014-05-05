@@ -58,6 +58,7 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
 	    		$scope.$on('$locationChangeSuccess', function () {
 			          $scope.search();
 			    });
+			    $scope.editable = true;
 			    $scope.search = function(){
 					Resumes.get()
 						.success(function(resume){
@@ -81,6 +82,19 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
 	    	url: '/view/:jobId',
 	    	templateUrl: 'views/jobs/job.html',
 	    	controller: 'JobApplicationController'
+	    })
+	    .state('user_resume',{
+	    	url: '/user/resume/:userId',
+	    	templateUrl: 'views/user/resume.view.html',
+	    	controller: function($scope,Resumes,$stateParams) {
+			    $scope.search = function(){
+					Resumes.getUser($stateParams.userId)
+						.success(function(resume){
+							$scope.resume = resume;
+						});
+				}
+				$scope.search();
+			}
 	    })
 	    .state('signup',{
 	    	url: '/signup',

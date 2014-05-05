@@ -53,10 +53,17 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.get('/api/v1/user/:id', auth, function(req,res){
+  app.get('/api/v1/user/:id', function(req,res){
     User.find({_id: req.params['id']}).populate('profile, resume').exec(function(err,user){
       if(err) return res.json("No")
       res.json(user);
+    });
+  })
+  app.get('/api/v1/user/:id/resume', function(req,res){
+    User.findOne({_id: req.params['id']},function(err,user){
+      // console.log(user)
+      if(err) return res.json("No")
+      res.json(user.resume);
     });
   })
 

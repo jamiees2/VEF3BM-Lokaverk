@@ -12,6 +12,9 @@ angular.module('ResumeService', [])
 			},
 			update : function(resumeData) {
 				return $http.post('/api/v1/user/resume', resumeData);
+			},
+			getUser: function(id){
+				return $http.get('/api/v1/user/'+id+'/resume');
 			}
 		}
 	});

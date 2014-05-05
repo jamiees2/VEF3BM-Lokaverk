@@ -1,5 +1,6 @@
 <div ui-view>
-<a ui-sref=".edit">Edit</a>
+<a ui-sref=".edit" ng-show="editable">Edit</a>
+<a ui-sref="user_resume({userId: user._id})">Permalink</a>
 <h2>{{resume.name}}</h2>
 <p>{{resume.address}}</p>
 <i>{{resume.phone}}</i>
