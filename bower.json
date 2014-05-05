@@ -24,6 +24,7 @@
     "Bootflat": "~2.0.1",
     "showdown": "~0.3.1",
     "angular-sanitize": "~1.2.16",
-    "angular-ui-router": "~0.2.10"
+    "angular-ui-router": "~0.2.10",
+    "angular-bootstrap": "~0.11.0"
   }
 }
