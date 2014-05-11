@@ -17,7 +17,7 @@ angular.module('JobService', [])
 			update: function(id, resumeData){
 				return $http.put('/api/v1/job/' + id, resumeData);
 			},
-			delete: function(id) {
+			del: function(id) {
 				return $http.delete('/api/v1/job/' + id);
 			},
 			find: function(id){

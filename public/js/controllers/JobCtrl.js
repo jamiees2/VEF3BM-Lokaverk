@@ -81,7 +81,7 @@ angular.module('JobCtrl', ['ui.bootstrap']).controller('JobController', function
 	    })
 	}
 	$scope.deleteJob = function(job){
-		Jobs.delete(job._id)
+		Jobs.del(job._id)
 			.success(function(data){
 				$scope.jobs = data;
 			});
