@@ -11,10 +11,12 @@ angular.module('JobCtrl', ['ui.bootstrap']).controller('JobController', function
 	// 	$scope.addingJob = !$scope.addingJob;
 	// }
 	$scope.addJob = function(){
+		//Open a modal window
 		$modal.open({
 			templateUrl: 'views/jobs/addJob.html',
 			controller: function($scope, $modalInstance, data, Jobs){
 				$scope.formData = data;
+				//Return
 				$scope.submit = function(){
 				  	Jobs.create($scope.formData)
 				  		.success(function(data){
@@ -25,6 +27,7 @@ angular.module('JobCtrl', ['ui.bootstrap']).controller('JobController', function
 					$modalInstance.dismiss();
 				}
 			},
+			// For accessing data in the modal controller
 			resolve: {
 				data: function(){
 					return $scope.formData;
@@ -53,6 +56,7 @@ angular.module('JobCtrl', ['ui.bootstrap']).controller('JobController', function
 			})
 	}
 	$scope.editJob = function(job){
+		//Open Modal
 		$modal.open({
 			templateUrl: 'views/jobs/addJob.html',
 			controller: function($scope, $modalInstance, data, Jobs){

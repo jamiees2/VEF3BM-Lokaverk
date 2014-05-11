@@ -12,6 +12,6 @@ angular.module('resumeApp', [
 	'JobService'
 ]).run(function(Auth,$rootScope,$state, $stateParams){
 	$rootScope.$state = $state;
-	$rootScope.$stateParams = $stateParams;
+	$rootScope.$stateParams = $stateParams; //Save the state and stateParams to the scope, so it is accessible within views
 	Auth.isLoggedIn(); // Get the user on startup
 });

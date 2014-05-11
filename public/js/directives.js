@@ -1,3 +1,4 @@
+//A markdown renderer
 angular.module('markdown',['ngSanitize']).directive('markdown', function ($sanitize) {
     var converter = new Showdown.converter();
     return {

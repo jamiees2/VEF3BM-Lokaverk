@@ -1,7 +1,5 @@
+//Resume service
 angular.module('ResumeService', [])
-
-	// super simple service
-	// each function returns a promise object 
 	.factory('Resumes', function($http) {
 		return {
 			get : function() {

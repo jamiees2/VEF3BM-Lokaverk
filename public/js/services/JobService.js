@@ -1,7 +1,5 @@
+//A service for jobs
 angular.module('JobService', [])
-
-	// super simple service
-	// each function returns a promise object 
 	.factory('Jobs', function($http) {
 		"use strict"
 		return {

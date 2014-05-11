@@ -1,3 +1,4 @@
+//User login/logout service
 angular.module('AuthService',[]).service( 'Auth', function($http,$rootScope) {
   return {
     login: function(credentials) {

@@ -1,4 +1,5 @@
 angular.module('appRoutes', []).config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+	//Add error handling to the ajax requests
 	$httpProvider.responseInterceptors.push(function($q, $location) {
       return function(promise) {
         return promise.then(
@@ -17,37 +18,11 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
         );
       }
     });
-	// $routeProvider
-
-	// 	// resume page that will use the ResumeController
-	// 	.when('/', {
-	// 		templateUrl: 'views/index.html',
-	// 		controller: 'MainController'
-	// 	})
-	// 	.when('/jobs', {
-	// 		templateUrl: 'views/jobs.html',
-	// 		controller: 'JobController'
-	// 	})
-	// 	.when('/resume/edit', {
-	// 		templateUrl: 'views/resume.html',
-	// 		controller: 'ResumeController'
-	// 	})
-	// 	.when('/resume', {
-	// 		templateUrl: 'views/view.html',
-	// 		controller: 'ViewController'
-	// 	})
-	// 	.when('/login', {
-	// 		templateUrl: 'views/login.html',
-	// 		controller: 'LoginController'
-	// 	})
-	// 	.when('/logout', {
-	// 		controller: 'LogoutController',
-	// 		templateUrl: 'views/empty.html'
-	// 	});
-
+	//Enable html5 pushState routing
 	$locationProvider.html5Mode(true);
-
+	//All routes not matched by a state lead to home
 	$urlRouterProvider.otherwise("/");
+	//Ruoutes
 	$stateProvider
 	    .state('root', {
 	    	url: '/',
@@ -57,6 +32,7 @@ angular.module('appRoutes', []).config(function($routeProvider, $locationProvide
 	    	url: '/resume',
 	    	templateUrl: 'views/user/resume.view.html',
 	    	controller: function($scope,Resumes) {
+	    		//Refresh resume on edit
 	    		$scope.$on('$locationChangeSuccess', function () {
 			          $scope.search();
 			    });
