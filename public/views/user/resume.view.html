@@ -1,34 +1,44 @@
 <div ui-view>
-<a ui-sref=".edit" ng-show="editable">Edit</a>
-<a ui-sref="user_resume({userId: user._id})">Permalink</a>
-<h2>{{resume.name}}</h2>
-<p>{{resume.address}}</p>
-<i>{{resume.phone}}</i>
-<p>{{resume.email}}</p>
-<h3 class="text-center">Education</h3>
-<div ng-repeat="degree in resume.degrees">
-	<h3>{{degree.name}}</h3>
-	<h4>{{degree.from}}-{{degree.to}}&nbsp;&nbsp;{{degree.school}}</h4>
-	<p>{{degree.description}}</p>
-</div>
-<h3 class="text-center">Job Experience</h3>
-<div ng-repeat="experience in resume.experience">
-	<h3>{{experience.title}}</h3>
-	<h4>{{experience.from}}-{{experience.to}}&nbsp;&nbsp;{{experience.location}}</h4>
-	<p>{{experience.description}}</p>
-</div>
-<h3 class="text-center">References</h3>
-<div class="row" ng-repeat="reference in resume.references">
-	<div class="col-xs-4">
-		<h4 class="pull-left">{{reference.name}}</h4>
+	<a ui-sref=".edit" ng-show="editable">Edit</a>&nbsp;&nbsp;
+	<a ui-sref="user_resume({userId: user._id})">Permalink</a>
+	<div class="row resume">
+		<div class="col-sm-10">
+			<h2>{{resume.name}}</h2>
+			<p>{{resume.address}}</p>
+			<i>{{resume.phone}}</i>
+			<p>{{resume.email}}</p>
+		</div>
+		<div class="col-sm-2">
+			<img class="img-thumbnail" gravatar-src="resume.email" gravatar-size="200">
+		</div>
+		<div class="col-xs-12">
+			<h3 class="text-center">Education</h3>
+			<div ng-repeat="degree in resume.degrees">
+				<h3>{{degree.name}}</h3>
+				<h4>{{degree.from}}-{{degree.to}}&nbsp;&nbsp;{{degree.school}}</h4>
+				<p>{{degree.description}}</p>
+			</div>
+			<h3 class="text-center">Job Experience</h3>
+			<div ng-repeat="experience in resume.experience">
+				<h3>{{experience.title}}</h3>
+				<h4>{{experience.from}}-{{experience.to}}&nbsp;&nbsp;{{experience.location}}</h4>
+				<p>{{experience.description}}</p>
+			</div>
+			<h3 class="text-center">References</h3>
+			<div class="row references" ng-repeat="reference in resume.references">
+				<div class="col-xs-4">
+					<h4 class="pull-left">{{reference.name}}</h4>
+				</div>
+				<div class="col-xs-4">
+					<em>{{reference.phone}}</em>
+				</div>
+				<div class="col-xs-4">
+					<p>{{reference.job}}</p>
+				</div>
+			</div>
+
+			<h3 class="text-center">Additional Information</h3>
+			<div markdown="resume.additional"></div>
+		</div>
 	</div>
-	<div class="col-xs-4">
-		<em>{{reference.phone}}</em>
-	</div>
-	<div class="col-xs-4">
-		<p>{{reference.job}}</p>
-	</div>
-</div>
-<h3 class="text-center">Additional Information</h3>
-<div class="row"><div class="col-xs-12" markdown="resume.additional"></div></div>
 </div>

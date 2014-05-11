@@ -1,5 +1,6 @@
 angular.module('resumeApp', [
 	'ui.router',
+	'ui.gravatar',
 	'ngRoute', 
 	'appRoutes',
 	'markdown',
