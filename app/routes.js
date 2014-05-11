@@ -55,14 +55,14 @@ module.exports = function(app, passport) {
 
   app.get('/api/v1/user/:id', function(req,res){
     User.find({_id: req.params['id']}).populate('profile, resume').exec(function(err,user){
-      if(err) return res.json("No")
+      if(err) return res.send(500);
       res.json(user);
     });
   })
   app.get('/api/v1/user/:id/resume', function(req,res){
     User.findOne({_id: req.params['id']},function(err,user){
       // console.log(user)
-      if(err) return res.json("No")
+      if(err) return res.send(500);
       res.json(user.resume);
     });
   })
@@ -109,13 +109,13 @@ module.exports = function(app, passport) {
     // console.log(req.params)
     Job.findOne({_id: req.params['id']}).exec(function(err,job){
 
-      if(err) return res.json("No");
+      if(err) return res.res.send(500);
       if (req.user._id.toString() !== job.user.toString()) {
         job.applications = [];
         return res.json(job);
       }
       User.populate(job.applications,{path:'user'}, function(err,user){
-        if(err) return res.json("No");
+        if(err) return res.send(500);
         return res.json(job);
       });
     })
@@ -125,7 +125,7 @@ module.exports = function(app, passport) {
   app.put('/api/v1/job/:id',auth,function(req,res){
     // console.log(req.params)
     Job.findOne({_id: req.params['id'], user: req.user},function(err,job){
-      if(err) return res.json("No")
+      if(err) return res.send(500);
       job.title = req.body.title;
       job.company = req.body.company
       job.description = req.body.description
@@ -136,10 +136,8 @@ module.exports = function(app, passport) {
   });
 
   app.delete('/api/v1/job/:id',auth,function(req,res){
-    // console.log(req.params)
     Job.findOne({_id: req.params['id'], user: req.user},function(err,job){
-
-      if(err) return res.json("No")
+      if(err) return res.send(500);
       job.remove(function(err){
         listJobs(req,res);
       });
@@ -148,23 +146,20 @@ module.exports = function(app, passport) {
 
   app.get('/api/v1/job/:id/applications',auth,function(req,res){
     Job.findOne({_id: req.params['id'], user: req.user},function(err,job){
-      if(err) return res.json("No");
+      if(err) return res.send(500);
       res.json(job.applications);
     });
   });
 
   app.post('/api/v1/job/:id/applications',auth,function(req,res){
     Job.findOne({_id: req.params['id']},function(err,job){
-      if(err) return res.json("No");
-      //TODO: Create a job
+      if(err) return res.send(500);
       job.applications.push({
         cover_letter: req.body.cover_letter,
         user: req.user
       });
       job.save(function(err){
-        // debugger;
-        console.log(err);
-        if(err) return res.json("No");
+        if(err) return res.send(500);
         res.json(job);
       })
     });
